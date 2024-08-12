@@ -1,0 +1,37 @@
+---
+- hosts: raspbian
+  become: true
+  become_user: root
+  tasks:
+    - name: Updates cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 1200
+
+    - name: Upgrade packages
+      ansible.builtin.apt:
+        upgrade: dist
+
+    - name: Check if uptime is greater than 7 days
+      set_fact:
+        reboot_required: "{{ ansible_facts.uptime_seconds >= maintenance_day_limit }}"
+
+    - name: Auto clean
+      ansible.builtin.apt:
+        autoclean: yes
+      when: reboot_required
+
+    - name: Auto remove
+      ansible.builtin.apt:
+        autoremove: yes
+      when: reboot_required
+
+    - name: Reboot system if necessary
+      reboot:
+        msg: "Monthly maintenance reboot"
+        connect_timeout: 5
+        reboot_timeout: 120
+        pre_reboot_delay: 0
+        post_reboot_delay: 0
+        test_command: uptime
+      when: reboot_required

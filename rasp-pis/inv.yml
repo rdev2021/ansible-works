@@ -1,0 +1,21 @@
+raspbian:
+  hosts:
+    pihole:
+      docker_packages_required: true
+  vars:
+    maintenance_day_limit: 604800 #7 days
+    host_key_checking: false
+    post_setup_reboot_required: false
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    mandatory_packages:
+      - git
+      - python3-pip
+      - python3
+      - vim
+      - netcat
+      - tree

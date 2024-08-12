@@ -1,0 +1,36 @@
+---
+- hosts: raspbian
+  become: true
+  become_user: root
+  tasks:
+    - name: Updates cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 1200
+
+    - name: Upgrade packages
+      ansible.builtin.apt:
+        upgrade: dist
+
+    - name: Install mandatory packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ mandatory_packages }}"
+
+    - name: Install Docker packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ docker_packages }}"
+      when: docker_packages_required
+
+    - name: Reboot system if necessary
+      reboot:
+        msg: "Post setup reboot"
+        connect_timeout: 5
+        reboot_timeout: 120
+        pre_reboot_delay: 0
+        post_reboot_delay: 0
+        test_command: uptime
+      when: post_setup_reboot_required
