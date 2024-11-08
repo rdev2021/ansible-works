@@ -23,6 +23,7 @@ Personal project for Ansible to automate the setup, configuration, and ongoing m
    ```bash
    git clone https://github.com/rdev2021/ansible-works.git
    cd ansible-works
+   ```
 
 2. **Edit Inventory File**: Update the inv.ini file with the IP addresses (or hostname ) of your Raspberry Pi devices.
 
@@ -40,8 +41,9 @@ Personal project for Ansible to automate the setup, configuration, and ongoing m
         ansible-playbook -i inv.yml rasp-update.yml -vv
         ```
     - **Check Connectivity:**
-
+        ```bash
         ansible -i inv.yml -m ping
+        ```
 
 ## Playbooks
 - **rasp-setup.yml:** Initializes each Raspberry Pi with basic settings, packages, and configurations.
