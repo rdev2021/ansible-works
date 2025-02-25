@@ -1,7 +1,9 @@
 raspbian:
   hosts:
-    pihole:
+    10.11.1.11:
       docker_packages_required: true
+    10.11.1.161:
+      ansible_user: devarajr
   vars:
     maintenance_day_limit: 604800 #7 days
     host_key_checking: false

@@ -24,7 +24,6 @@
     - name: Auto remove
       ansible.builtin.apt:
         autoremove: yes
-      when: reboot_required
 
     - name: Reboot system if necessary
       reboot:
