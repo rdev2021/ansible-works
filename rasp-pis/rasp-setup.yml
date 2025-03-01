@@ -3,27 +3,17 @@
   become: true
   become_user: root
   tasks:
-    - name: Updates cache
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 1200
-
-    - name: Upgrade packages
-      ansible.builtin.apt:
-        upgrade: dist
-
     - name: Install mandatory packages
       ansible.builtin.apt:
-        name: "{{ item }}"
+        name: "{{ (mandatory_packages + (packages | default([]))) | unique }}"
         state: present
-      with_items: "{{ mandatory_packages }}"
+        update_cache: yes
 
     - name: Install Docker packages
       ansible.builtin.apt:
-        name: "{{ item }}"
-        state: present
-      with_items: "{{ docker_packages }}"
-      when: docker_packages_required
+        name: "{{ docker_packages }}"
+        state: "{{ 'present' if docker_packages_required | default(true) else 'absent' }}"
+        update_cache: yes
 
     - name: Reboot system if necessary
       reboot:

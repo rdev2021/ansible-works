@@ -3,7 +3,10 @@ raspbian:
     10.11.1.11:
       docker_packages_required: true
     10.11.1.161:
+      docker_packages_required: false
       ansible_user: devarajr
+      packages: 
+          - openjdk-17-jdk-headless
   vars:
     maintenance_day_limit: 604800 #7 days
     host_key_checking: false
@@ -19,5 +22,5 @@ raspbian:
       - python3-pip
       - python3
       - vim
-      - netcat
+      - netcat-openbsd
       - tree
