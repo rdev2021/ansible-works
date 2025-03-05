@@ -7,6 +7,11 @@ raspbian:
       ansible_user: devarajr
       packages: 
           - openjdk-17-jdk-headless
+          - qemu-utils
+          - qemu-system-x86
+          - podman
+          - podman-compose
+          - bash-completion
   vars:
     maintenance_day_limit: 604800 #7 days
     host_key_checking: false
