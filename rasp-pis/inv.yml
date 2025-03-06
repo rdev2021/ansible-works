@@ -12,7 +12,6 @@ debian_servers:
           - podman-compose
           - bash-completion
   vars:
-    ansible_user: devarajr
     maintenance_day_limit: 604800 #7 days
     host_key_checking: false
     post_setup_reboot_required: false
