@@ -4,7 +4,6 @@ debian_servers:
       docker_packages_required: true
     10.11.1.161:
       docker_packages_required: false
-      ansible_user: devarajr
       packages: 
           - openjdk-17-jdk-headless
           - qemu-utils
@@ -13,6 +12,7 @@ debian_servers:
           - podman-compose
           - bash-completion
   vars:
+    ansible_user: devarajr
     maintenance_day_limit: 604800 #7 days
     host_key_checking: false
     post_setup_reboot_required: false
