@@ -1,4 +1,4 @@
-raspbian:
+debian_servers:
   hosts:
     10.11.1.11:
       docker_packages_required: true
